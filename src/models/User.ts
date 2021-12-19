@@ -27,7 +27,7 @@ const userSchema = new Schema<IUserSchema>({
 
 
 userSchema.method("toJSON", function () {
-    const { _id, ...object } = this.toObject();
+    const { _id,password, ...object } = this.toObject();
     object.uid = _id;
     return object;
 });

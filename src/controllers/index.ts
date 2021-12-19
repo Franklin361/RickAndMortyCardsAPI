@@ -1,6 +1,8 @@
 
-import { login } from "./authController";
+import { login, signUp, renewToken } from "./authController";
 
 export {
-    login
+    login,
+    signUp,
+    renewToken
 }

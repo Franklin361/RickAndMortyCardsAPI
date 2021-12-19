@@ -2,9 +2,10 @@
 import express, { Application } from "express";
 import cors from 'cors';
 import http from 'http';
-import { configConnectionDatabase } from '../database/config';
 
+import { configConnectionDatabase } from '../database/config';
 import { authRouter } from "../routes";
+
 
 
 export class Server {
