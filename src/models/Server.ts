@@ -3,8 +3,11 @@ import express, { Application } from "express";
 import cors from 'cors';
 import http from 'http';
 
+import { Server as Service } from 'socket.io'
+
 import { configConnectionDatabase } from '../database/config';
 import { authRouter } from "../routes";
+import { Socket } from './Socket';
 
 
 
@@ -13,6 +16,8 @@ export class Server {
     private app: Application;
     private port: string;
     private server: http.Server;
+    private io:Service;
+
     private apiPath = {
         auth:'/api/auth'
     };
@@ -20,7 +25,8 @@ export class Server {
     constructor(){
         this.app = express();
         this.port = process.env.PORT || '8000';
-        this.server = http.createServer( this.app );  
+        this.server = http.createServer( this.app );
+        this.io = new Service( this.server );  
     }
 
     middlewares(){
@@ -34,7 +40,7 @@ export class Server {
     }
 
     configSockets(){
-        
+        new Socket( this.io );
     }
 
     connectionDatabase(){

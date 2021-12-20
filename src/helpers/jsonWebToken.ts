@@ -24,7 +24,7 @@ export const generateJWT = ( uid:string ) => {
 };
 
 
-export const comprobarJWT = (token:string ="") => {
+export const findOutJWT = (token:string ="") => {
     try {
        type tokenUID = { uid:string };
 
