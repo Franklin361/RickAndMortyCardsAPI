@@ -15,7 +15,7 @@ export const login = async(req: Request, res: Response) => {
 
     if (!user) {
         return res.status(400).json({
-            msg: 'The user was not found in the database'
+            message: 'The user was not found in the database'
         });
     }
 
@@ -23,7 +23,7 @@ export const login = async(req: Request, res: Response) => {
 
     if (!isCorrectPassword) {
         return res.status(400).json({
-            msg: 'The credentials are wrong'
+            message: 'The credentials are wrong'
         });
     }
 

@@ -6,7 +6,7 @@ import http from 'http';
 import { Server as Service } from 'socket.io'
 
 import { configConnectionDatabase } from '../database/config';
-import { authRouter } from "../routes";
+import { authRouter, cardRouter } from "../routes";
 import { Socket } from './Socket';
 
 
@@ -19,7 +19,8 @@ export class Server {
     private io:Service;
 
     private apiPath = {
-        auth:'/api/auth'
+        auth:'/api/auth',
+        card:'/api/card'
     };
 
     constructor(){
@@ -37,6 +38,7 @@ export class Server {
 
     configRoutes(){
         this.app.use(this.apiPath.auth, authRouter);
+        this.app.use(this.apiPath.card, cardRouter);
     }
 
     configSockets(){

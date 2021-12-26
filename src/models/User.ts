@@ -6,6 +6,7 @@ export interface IUserSchema {
     username:string;
     password:string;
     email:string;
+    favorites:string[];
 }
 
 const userSchema = new Schema<IUserSchema>({
@@ -20,6 +21,9 @@ const userSchema = new Schema<IUserSchema>({
     email: {
         type: String,
         required: true
+    },
+    favorites:{
+      type: [String]  
     }
 },{
     versionKey: false
