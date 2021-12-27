@@ -22,24 +22,35 @@ const createCard = ({ url, uid, image, name }) => __awaiter(void 0, void 0, void
         return { message: 'User no exist', type: 'error' };
     if (user.favorites.length === 5)
         return { message: 'Version Free solo acepta 5 tarjetas favoritas', type: 'warning' };
+    const existCardOfUser = user.favorites.filter(fav => fav === url);
     if (!existCard) {
         const newCard = new Card_1.default({ url, image, name });
         yield newCard.save();
-    }
-    else {
-        existCard.likes += 1;
-        yield existCard.save();
-    }
-    const existCardOfUser = user.favorites.filter(fav => fav === url);
-    if (existCardOfUser.length === 0) {
         user.favorites = [...user.favorites, url];
         yield user.save();
+        return {
+            message: 'Tarjeta agregada a Favoritos',
+            favorites: user.favorites,
+            type: 'success'
+        };
     }
-    return {
-        message: 'Tarjeta agregada a Favoritos',
-        favorites: user.favorites,
-        type: 'success'
-    };
+    else {
+        if (existCardOfUser.length === 0) {
+            user.favorites = [...user.favorites, url];
+            existCard.likes += 1;
+            yield user.save();
+            yield existCard.save();
+            return {
+                message: 'Tarjeta agregada a Favoritos',
+                favorites: user.favorites,
+                type: 'success'
+            };
+        }
+        return {
+            message: 'Tarjeta ya esta agregada a Favoritos',
+            type: 'info'
+        };
+    }
 });
 exports.createCard = createCard;
 const deleteCard = ({ url, uid, image, name }) => __awaiter(void 0, void 0, void 0, function* () {
