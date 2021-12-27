@@ -93,7 +93,7 @@ export const deleteCard = async ({ url, uid, image, name }: IProps) => {
 
 
 export const getFavoriteCardsOfUser = async (uid: string) => {
-
+    
     const user = await UserModel.findById(uid);
 
     if (!user) {

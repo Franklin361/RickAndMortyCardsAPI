@@ -26,8 +26,9 @@ class Socket {
             }
             const id_user = uid;
             console.log('socket conection active!:3');
+            socket.join(id_user);
             this.io.emit('ranking-cards', yield (0, cardController_1.getRankingCards)());
-            this.io.emit('favorites', yield (0, cardController_1.getFavoriteCardsOfUser)(id_user));
+            this.io.to(id_user).emit('favorites', yield (0, cardController_1.getFavoriteCardsOfUser)(id_user));
             socket.on('action_card', ({ url, image, name, action }, callback) => __awaiter(this, void 0, void 0, function* () {
                 if (action === 'like')
                     callback(yield (0, cardController_1.createCard)({ url, uid: id_user, image, name }));

@@ -29,12 +29,14 @@ export class Socket {
 
             console.log('socket conection active!:3')
             //Cuando se conecten...
+            
+            socket.join(id_user); // unir a una sala con el id del usuario
 
-            /* Emitir el ranking general*/
+            /* Emitir el ranking general a todos*/
             this.io.emit('ranking-cards', await getRankingCards());
             
-            /* Emitir sus tarjetas fav */
-            this.io.emit('favorites', await getFavoriteCardsOfUser(id_user));
+            /* Emitir sus tarjetas fav de manera individual*/
+            this.io.to(id_user).emit('favorites', await getFavoriteCardsOfUser(id_user));
 
             // Escuchar cuando se (elimine o le de like) a una tarjeta
             socket.on('action_card', async({ url, image, name, action }, callback)=>{
@@ -44,7 +46,6 @@ export class Socket {
                 else callback( await deleteCard({ url, uid: id_user,image, name }) );
 
                 this.io.emit('ranking-cards', await getRankingCards());
-
                 
             })
 
